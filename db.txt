@@ -1,0 +1,45 @@
+CREATE TABLE sumber(
+	id_sumber INT PRIMARY KEY AUTO_INCREMENT,
+    nama VARCHAR(20)
+)
+
+CREATE TABLE admin(
+	id_admin INT PRIMARY KEY AUTO_INCREMENT,
+    nama VARCHAR(40)
+    email VARCHAR(40)
+    pass VARCHAR(40)
+)
+
+CREATE TABLE karyawan(
+	id_karyawan INT PRIMARY KEY AUTO_INCREMENT,
+    nama VARCHAR(40)
+    alamat TEXT
+    kontak VARCHAR(40)
+)
+
+CREATE TABLE pengeluaran(
+	id_pengeluaran INT PRIMARY KEY AUTO_INCREMENT,
+    tgl_pengeluaran DATE,
+    jumlah INT,
+    id_sumber INT,
+    FOREIGN KEY (id_sumber) REFERENCES sumber(id_sumber) ON DELETE RESTRICT
+)
+
+CREATE TABLE pemasukan(
+	id_pemasukan INT PRIMARY KEY AUTO_INCREMENT,
+    tgl_pemasukan DATE,
+    jumlah INT,
+    id_sumber INT,
+    FOREIGN KEY (id_sumber) REFERENCES sumber(id_sumber) ON DELETE RESTRICT
+)
+
+CREATE TABLE uang(
+	id_uang INT PRIMARY KEY AUTO_INCREMENT,
+    tgl_uang DATE,
+    id_pengeluaran INT,
+    id_pendapatan INT,
+    jumlah INT,
+    FOREIGN KEY (id_sumber) REFERENCES sumber(id_sumber) ON DELETE RESTRICT,
+    FOREIGN KEY (id_pendapatan) REFERENCES pemasukan(id_pemasukan) ON DELETE RESTRICT,
+    FOREIGN KEY (id_pengeluaran) REFERENCES pengeluaran(id_pengeluaran) ON DELETE RESTRICT
+)
